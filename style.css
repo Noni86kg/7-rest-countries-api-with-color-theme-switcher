@@ -274,6 +274,7 @@ Modal
     box-shadow: var(--box-shadow);
     padding: 0 15px;
     margin: 4px 10px 0 0;
+    background: var(--white);
 }
 /*******************
 responsive for ipad
