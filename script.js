@@ -34,20 +34,39 @@ filter.addEventListener('click', (e) => {
 })
 
 // Search
-search.addEventListener('input', e => {
-
-    const { value } = e.target
-    const countryName = document.querySelectorAll(".country-name")
-
-    countryName.forEach(name => {
-
-        if ( name.innerText.toLowerCase().includes(value.toLowerCase())) {
-            name.parentElement.parentElement.style.display = "block"
-        } else {
-            name.parentElement.parentElement.style.display = "none"
-        }
+let eTargetValue;
+function fetchListOfProducts() {
+        const { value } = eTargetValue
+        const countryName = document.querySelectorAll(".country-name")
+    
+        countryName.forEach(name => {
+    
+            if ( name.innerText.toLowerCase().includes(value.toLowerCase())) {
+                name.parentElement.parentElement.style.display = "block"
+            } else {
+                name.parentElement.parentElement.style.display = "none"
+            }
     })
-})
+}
+  
+  const debounce = (fn, delay) => {
+    let timer;
+  
+    return arguments => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        fn.apply(this, arguments);
+      }, delay);
+    };
+  };
+  
+  const debounceProductSearchCall = debounce(fetchListOfProducts, 300);
+
+  search.addEventListener('input', (e) => {
+    eTargetValue = e.target
+    debounceProductSearchCall
+  })
+
 
 // Dark-Light Mode
 darkLightModeBtn.addEventListener('click', (e) => {
